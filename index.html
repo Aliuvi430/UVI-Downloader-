@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UVI Downloader</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0f17;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #252c38;
+    }
+
+    header h1 {
+      color: #4f9cff;
+      font-size: 28px;
+    }
+
+    .hero {
+      max-width: 700px;
+      margin: 70px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      color: #aeb7c5;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .download-box {
+      display: flex;
+      gap: 10px;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .download-box input {
+      flex: 1;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #394354;
+      background: #151b25;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .download-box button {
+      padding: 16px 24px;
+      border: none;
+      border-radius: 10px;
+      background: #2ea043;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-box button:hover {
+      background: #238636;
+    }
+
+    #result {
+      margin-top: 25px;
+      color: #8bd5ff;
+      min-height: 25px;
+    }
+
+    .features {
+      max-width: 900px;
+      margin: 30px auto;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .card {
+      background: #151b25;
+      border: 1px solid #293241;
+      border-radius: 12px;
+      padding: 25px;
+      width: 260px;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #aeb7c5;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      padding: 30px 15px;
+      border-top: 1px solid #252c38;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .download-box {
+        flex-direction: column;
+      }
+
+      .download-box button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>UVI Downloader</h1>
+  </header>
+
+  <section class="hero">
+    <h2>Download Videos Simply</h2>
+
+    <p>
+      Enter an authorized direct media URL to continue.
+    </p>
+
+    <div class="download-box">
+      <input
+        type="url"
+        id="urlInput"
+        placeholder="Paste video URL here..."
+      >
+
+      <button onclick="checkUrl()">
+        Download
+      </button>
+    </div>
+
+    <div id="result"></div>
+  </section>
+
+  <section class="features">
+
+    <div class="card">
+      <h3>⚡ Fast</h3>
+      <p>Simple and easy-to-use downloader interface.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔒 Safe</h3>
+      <p>Use only content you own or are authorized to download.</p>
+    </div>
+
+    <div class="card">
+      <h3>📱 Mobile Friendly</h3>
+      <p>Works comfortably on phones and computers.</p>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 UVI Downloader
+  </footer>
+
+  <script>
+    function checkUrl() {
+      const url = document.getElementById("urlInput").value.trim();
+      const result = document.getElementById("result");
+
+      if (!url) {
+        result.textContent = "Please enter a video URL.";
+        return;
+      }
+
+      try {
+        const parsed = new URL(url);
+
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+          result.textContent = "Please enter a valid HTTP/HTTPS URL.";
+          return;
+        }
+
+        result.textContent =
+          "URL received. Download service will be connected next.";
+      } catch {
+        result.textContent = "Please enter a valid URL.";
+      }
+    }
+  </script>
+
+</body>
+  </html>
