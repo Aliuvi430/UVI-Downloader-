@@ -190,29 +190,38 @@
   </footer>
 
   <script>
-    function checkUrl() {
-      const url = document.getElementById("urlInput").value.trim();
-      const result = document.getElementById("result");
+    async function checkUrl() {
+  const url = document.getElementById("urlInput").value.trim();
+  const result = document.getElementById("result");
 
-      if (!url) {
-        result.textContent = "Please enter a video URL.";
-        return;
-      }
+  if (!url) {
+    result.textContent = "Please enter a URL.";
+    return;
+  }
 
-      try {
-        const parsed = new URL(url);
+  result.textContent = "Checking URL...";
 
-        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-          result.textContent = "Please enter a valid HTTP/HTTPS URL.";
-          return;
-        }
+  try {
+    const response = await fetch("/api/check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ url: url })
+    });
 
-        result.textContent =
-          "URL received. Download service will be connected next.";
-      } catch {
-        result.textContent = "Please enter a valid URL.";
-      }
+    const data = await response.json();
+
+    if (!response.ok) {
+      result.textContent = data.error || "Unable to check URL.";
+      return;
     }
+
+    result.textContent = data.message;
+  } catch (error) {
+    result.textContent = "Connection error. Please try again.";
+  }
+}
   </script>
 
 </body>
